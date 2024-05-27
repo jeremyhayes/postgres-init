@@ -83,4 +83,37 @@ secrets:
 ```
 
 ### Kubernetes init container
-_TBD_
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app.kubernetes.io/name: MyApp
+spec:
+
+  # Some app that needs a Postgres database
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+
+  # DB init container to ensure database is created before app starts
+  initContainers:
+  - name: init-db
+    image: postgres-init:v0.0.1
+    env:
+    - name: PG_HOST
+      value: host.docker.internal
+    - name: PG_PORT
+      value: 5432
+    - name: PG_USERNAME
+      value: postgres
+    - name: PG_PASSWORD
+      value: pgadmin
+    - name: DB_USERNAME
+      value: mynewdatabase
+    - name: DB_PASSWORD
+      value: mynewpassword
+```
+
+> NOTE: For illustrative purposes only. Production code should likely use ConfigMaps and/or Secrets.
