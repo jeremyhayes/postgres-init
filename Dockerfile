@@ -4,6 +4,6 @@ RUN apk --no-cache add \
     bash \
     postgresql16-client
 
-COPY docker-entrypoint.sh .
+COPY --chmod=0755 docker-entrypoint.sh .
 
 ENTRYPOINT [ "./docker-entrypoint.sh" ]
