@@ -78,6 +78,7 @@ ensure_user() {
 
 ensure_grant() {
     echo "GRANT ALL PRIVILEGES ON DATABASE :v_database TO :v_username" | run_psql
+    echo "GRANT ALL ON schema public TO :v_username" | run_psql --dbname $DB_USERNAME
 }
 
 ensure_env
